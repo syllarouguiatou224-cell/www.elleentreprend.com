@@ -34,118 +34,6 @@
             min-height: 100vh;
         }
 
-        /* ========== LOGIN PAGE ========== */
-        .login-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 1rem;
-        }
-
-        .login-box {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            max-width: 450px;
-            width: 100%;
-        }
-
-        .login-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .login-logo {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .login-title {
-            font-size: 1.8rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .login-subtitle {
-            color: var(--light-text);
-            font-size: 0.95rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-            font-weight: 500;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 0.8rem;
-            border: 2px solid #E0E0E0;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.1);
-        }
-
-        .login-button {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--primary) 0%, #B95F87 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .login-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(219, 39, 119, 0.3);
-        }
-
-        .login-button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .error-message {
-            display: none;
-            background: #FEE2E2;
-            color: #DC2626;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            border-left: 4px solid #DC2626;
-        }
-
-        .error-message.show {
-            display: block;
-        }
-
-        /* ========== ADMIN PAGE ========== */
-        .admin-page {
-            display: none;
-        }
-
-        .admin-page.show {
-            display: block;
-        }
-
         /* ========== HEADER ========== */
         header {
             background: rgba(26, 26, 46, 0.95);
@@ -175,17 +63,6 @@
         .header-actions {
             display: flex;
             gap: 1rem;
-            align-items: center;
-        }
-
-        .user-info {
-            color: white;
-            text-align: right;
-        }
-
-        .username {
-            font-weight: bold;
-            color: var(--accent);
         }
 
         .btn {
@@ -216,15 +93,6 @@
 
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-logout {
-            background: var(--danger);
-            color: white;
-        }
-
-        .btn-logout:hover {
-            background: #DC2626;
         }
 
         /* ========== MAIN CONTAINER ========== */
@@ -557,123 +425,73 @@
     </style>
 </head>
 <body>
-    <!-- LOGIN PAGE -->
-    <div class="login-container" id="login-page">
-        <div class="login-box">
-            <div class="login-header">
-                <div class="login-logo">🔐</div>
-                <h1 class="login-title">Admin Dashboard</h1>
-                <p class="login-subtitle">Elle Entreprend - UJNK 2026</p>
+    <!-- HEADER -->
+    <header>
+        <div class="header-container">
+            <div class="logo">📊 Admin Dashboard</div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" onclick="exportCSV()">📥 Exporter CSV</button>
+                <button class="btn btn-secondary" onclick="refreshData()">🔄 Actualiser</button>
+                <button class="btn btn-secondary" onclick="window.location.href='index.html'">← Retour</button>
             </div>
-
-            <div class="error-message" id="error-message"></div>
-
-            <form id="login-form">
-                <div class="form-group">
-                    <label for="username">Nom d'utilisateur</label>
-                    <input 
-                        type="text" 
-                        id="username" 
-                        name="username" 
-                        placeholder="Entrez votre nom d'utilisateur"
-                        required
-                        autocomplete="username"
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Mot de passe</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
-                        placeholder="Entrez votre mot de passe"
-                        required
-                        autocomplete="current-password"
-                    >
-                </div>
-
-                <button type="submit" class="login-button" id="login-btn">
-                    Se Connecter
-                </button>
-            </form>
         </div>
-    </div>
+    </header>
 
-    <!-- ADMIN PAGE -->
-    <div class="admin-page" id="admin-page">
-        <!-- HEADER -->
-        <header>
-            <div class="header-container">
-                <div class="logo">📊 Admin Dashboard</div>
-                <div class="header-actions">
-                    <div class="user-info">
-                        <div class="username" id="display-username"></div>
-                        <small>Connecté</small>
-                    </div>
-                    <button class="btn btn-secondary" onclick="exportCSV()">📥 Exporter CSV</button>
-                    <button class="btn btn-secondary" onclick="refreshData()">🔄 Actualiser</button>
-                    <button class="btn btn-logout" onclick="logout()">🚪 Déconnexion</button>
-                </div>
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+        <!-- STATS SECTION -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-label">Total Inscrites</div>
+                <div class="stat-value" id="total-count">0</div>
             </div>
-        </header>
+            <div class="stat-card">
+                <div class="stat-icon">🎓</div>
+                <div class="stat-label">Étudiantes</div>
+                <div class="stat-value" id="etudiante-count">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💼</div>
+                <div class="stat-label">Diplômées</div>
+                <div class="stat-value" id="diplom-count">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🚀</div>
+                <div class="stat-label">Porteuses de Projet</div>
+                <div class="stat-value" id="projet-count">0</div>
+            </div>
+        </div>
 
-        <!-- MAIN CONTAINER -->
-        <div class="container">
-            <!-- STATS SECTION -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">👥</div>
-                    <div class="stat-label">Total Inscrites</div>
-                    <div class="stat-value" id="total-count">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">🎓</div>
-                    <div class="stat-label">Étudiantes</div>
-                    <div class="stat-value" id="etudiante-count">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">💼</div>
-                    <div class="stat-label">Diplômées</div>
-                    <div class="stat-value" id="diplom-count">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">🚀</div>
-                    <div class="stat-label">Porteuses de Projet</div>
-                    <div class="stat-value" id="projet-count">0</div>
-                </div>
+        <!-- CONTROLS -->
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Rechercher par nom ou email...">
             </div>
+        </div>
 
-            <!-- CONTROLS -->
-            <div class="controls">
-                <div class="search-box">
-                    <input type="text" id="search-input" placeholder="Rechercher par nom ou email...">
-                </div>
-            </div>
-
-            <!-- TABLE -->
-            <div class="table-container">
-                <table id="data-table">
-                    <thead>
-                        <tr>
-                            <th>Prénom</th>
-                            <th>Nom</th>
-                            <th>Email</th>
-                            <th>Téléphone</th>
-                            <th>Catégorie</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-body">
-                        <tr>
-                            <td colspan="6" class="empty-state">
-                                <div class="empty-state-icon">📋</div>
-                                <p>Aucune inscription pour le moment</p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <!-- TABLE -->
+        <div class="table-container">
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <th>Prénom</th>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Téléphone</th>
+                        <th>Catégorie</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <tr>
+                        <td colspan="6" class="empty-state">
+                            <div class="empty-state-icon">📋</div>
+                            <p>Aucune inscription pour le moment</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -683,68 +501,15 @@
             <span class="modal-close" onclick="closeModal()">&times;</span>
             <div class="modal-title">Détails d'Inscription</div>
             <div id="modal-body"></div>
-            <button class="btn btn-logout" onclick="deleteCurrentRecord()" style="width: 100%; margin-top: 1rem;">Supprimer</button>
+            <button class="btn btn-danger" onclick="deleteCurrentRecord()" style="background: var(--danger); color: white; margin-top: 1rem; width: 100%;">Supprimer</button>
         </div>
     </div>
 
     <script>
-        // ========== AUTHENTICATION ==========
-        const VALID_USERNAME = "Oussama Kourouma";
-        const VALID_PASSWORD = "Beebou6207";
-        const SESSION_KEY = "adminSession";
-
-        function checkSession() {
-            const session = localStorage.getItem(SESSION_KEY);
-            if (session && session === "authenticated") {
-                showAdminPage();
-            } else {
-                showLoginPage();
-            }
-        }
-
-        function showLoginPage() {
-            document.getElementById('login-page').style.display = 'flex';
-            document.getElementById('admin-page').classList.remove('show');
-        }
-
-        function showAdminPage() {
-            document.getElementById('login-page').style.display = 'none';
-            document.getElementById('admin-page').classList.add('show');
-            document.getElementById('display-username').textContent = VALID_USERNAME;
-            loadData();
-        }
-
-        // Login form handler
-        document.getElementById('login-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const errorMsg = document.getElementById('error-message');
-
-            if (username === VALID_USERNAME && password === VALID_PASSWORD) {
-                localStorage.setItem(SESSION_KEY, "authenticated");
-                errorMsg.classList.remove('show');
-                showAdminPage();
-            } else {
-                errorMsg.textContent = '❌ Nom d\'utilisateur ou mot de passe incorrect!';
-                errorMsg.classList.add('show');
-                document.getElementById('password').value = '';
-            }
-        });
-
-        function logout() {
-            if (confirm('Êtes-vous sûr de vouloir vous déconnecter?')) {
-                localStorage.removeItem(SESSION_KEY);
-                document.getElementById('login-form').reset();
-                showLoginPage();
-            }
-        }
-
-        // ========== DATA MANAGEMENT ==========
         let allData = [];
         let currentRecordId = null;
 
+        // Load data from localStorage
         function loadData() {
             const stored = localStorage.getItem('inscriptions');
             allData = stored ? JSON.parse(stored) : [];
@@ -752,6 +517,7 @@
             displayData();
         }
 
+        // Update statistics
         function updateStats() {
             const total = allData.length;
             const etudiante = allData.filter(d => d.categorie === 'etudiante').length;
@@ -764,6 +530,7 @@
             document.getElementById('projet-count').textContent = projet;
         }
 
+        // Display data in table
         function displayData() {
             const tableBody = document.getElementById('table-body');
             const searchInput = document.getElementById('search-input').value.toLowerCase();
@@ -803,6 +570,7 @@
             return labels[cat] || cat;
         }
 
+        // View record details
         function viewRecord(id) {
             const record = allData.find(d => d.id === id);
             if (!record) return;
@@ -861,6 +629,7 @@
             currentRecordId = null;
         }
 
+        // Delete record
         function deleteRecord(id) {
             if (confirm('Êtes-vous sûr de vouloir supprimer cette inscription?')) {
                 allData = allData.filter(d => d.id !== id);
@@ -877,6 +646,7 @@
             }
         }
 
+        // Export CSV
         function exportCSV() {
             if (allData.length === 0) {
                 alert('Aucune donnée à exporter');
@@ -895,19 +665,22 @@
             link.click();
         }
 
+        // Search
+        document.getElementById('search-input').addEventListener('keyup', displayData);
+
+        // Refresh
         function refreshData() {
             loadData();
             alert('Données actualisées!');
         }
 
-        document.getElementById('search-input').addEventListener('keyup', displayData);
-
+        // Close modal when clicking outside
         document.getElementById('modal').addEventListener('click', (e) => {
             if (e.target.id === 'modal') closeModal();
         });
 
-        // Check session on page load
-        checkSession();
+        // Initial load
+        loadData();
     </script>
 </body>
 </html>
